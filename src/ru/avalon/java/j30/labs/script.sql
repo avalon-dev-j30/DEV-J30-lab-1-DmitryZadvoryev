@@ -1,17 +1,17 @@
 create table Roles
 (
-    id int,
+    role_id int,
     name varchar(255),
-    constraint uk_id_roles unique(id),
+    constraint uk_id_roles unique(role_id),
     constraint pk_name_roles primary key(name)
 );
 
 create table ClientInfo
 (
-    id int,
+    client_id int,
     name varchar(255),
     surname varchar(255),
-    constraint pk_id_clieninfo primary key(id)
+    constraint pk_id_clieninfo primary key(client_id)
 );
 
 create table Client
@@ -24,8 +24,8 @@ create table Client
     constraint uk_id_client unique(id),
     constraint uk_role_client unique(info),
     constraint pk_email_client primary key(email),
-    constraint fk_ClientInfo_To_Client foreign key (info) references ClientInfo(id),
-    constraint fk_Role_To_Client foreign key(role) references Roles(id)
+    constraint fk_ClientInfo_To_Client foreign key (info) references ClientInfo(client_id),
+    constraint fk_Role_To_Client foreign key(role) references Roles(role_id)
 );
 
 create table OrderList
@@ -71,13 +71,11 @@ create table Order2Product
     constraint fk_product foreign key(product) references Product(id)
 );
 
-# Добавление записей в таблицы
-
-insert into Roles(id ,name) values 
+insert into Roles(role_id ,name) values 
 (1, 'Администратор'),
 (2, 'Клиент');
 
-insert into ClientInfo(id, name, surname) values
+insert into ClientInfo(client_id, name, surname) values
 (1, 'Александр', 'Иванов'),
 (2, 'Иван', 'Петров'),
 (3, 'Иван', 'Иванов');
@@ -104,5 +102,5 @@ insert into Product( code, title, supplier, initial_price, retail_value) values
 insert into Order2Product(order_id, product) values
 (1,1),
 (2,3),
-(3,1)
+(3,1);
 
